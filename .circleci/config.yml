@@ -55,10 +55,10 @@ jobs:
       - run: 
           name: Deploy to Kubernetes
           command: |
-            envsubst < ${HOME}/project/bootstrap/ambassador.sh > ${HOME}/ambassador.sh
-            envsubst < ${HOME}/project/bootstrap/cert-manager.sh > ${HOME}/cert-manager.sh
-            envsubst < ${HOME}/project/bootstrap/external-dns.sh > ${HOME}/external-dns.sh
-            envsubst < ${HOME}/project/bootstrap/reloader.sh > ${HOME}/reloader.sh
+            envsubst < ${HOME}/project/ambassador.sh > ${HOME}/ambassador.sh
+            envsubst < ${HOME}/project/cert-manager.sh > ${HOME}/cert-manager.sh
+            envsubst < ${HOME}/project/external-dns.sh > ${HOME}/external-dns.sh
+            envsubst < ${HOME}/project/reloader.sh > ${HOME}/reloader.sh
             chmod +x ambassador.sh
             chmod +x cert-manager.sh
             chmod +x external-dns.sh
