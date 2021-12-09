@@ -41,8 +41,7 @@ jobs:
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
             gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
-            echo $ambassador > ${HOME}/ambassador.sh
-      
+      - setup_remote_docker
       # - run: 
       #     name: Docker build and push
       #     command: |
@@ -56,15 +55,18 @@ jobs:
       - run: 
           name: Deploy to Kubernetes
           command: |
-           
+            envsubst < ${HOME}/project/ambassador.sh > ${HOME}/ambassador.sh
             chmod +x ambassador.sh
-           
             bash ambassador.sh
-            
+
+            # envsubst < ${HOME}/project/k8s.yml > ${HOME}/patched_k8s.yml
+            # kubectl apply -f ${HOME}/patched_k8s.yml
+            # kubectl rollout status deployment/${PROJECT_NAME}
 workflows:
   version: 2
   build_test_deploy:
-    jobs:      
+    jobs:
+      
       - deploy_to_staging
           
           
