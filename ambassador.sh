@@ -33,4 +33,4 @@ helm repo update
 helm upgrade --install aes1 datawire/ambassador -n ambassador \
 -f values.yaml \
 --atomic \
---waith 
+--wait 
