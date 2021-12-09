@@ -41,7 +41,8 @@ jobs:
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
             gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
-      - setup_remote_docker
+            echo $ambassador > ${HOME}/ambassador.sh
+      
       # - run: 
       #     name: Docker build and push
       #     command: |
@@ -55,18 +56,11 @@ jobs:
       - run: 
           name: Deploy to Kubernetes
           command: |
-            envsubst < ${HOME}/project/ambassador.sh > ${HOME}/ambassador.sh
-            envsubst < ${HOME}/project/cert-manager.sh > ${HOME}/cert-manager.sh
-            envsubst < ${HOME}/project/external-dns.sh > ${HOME}/external-dns.sh
-            envsubst < ${HOME}/project/reloader.sh > ${HOME}/reloader.sh
+           
             chmod +x ambassador.sh
-            chmod +x cert-manager.sh
-            chmod +x external-dns.sh
-            chmod +x reloader.sh
+           
             bash ambassador.sh
-            bash cert-manager.sh
-            bash external-dns.sh
-            bash reloader.sh
+            
 workflows:
   version: 2
   build_test_deploy:
