@@ -55,9 +55,9 @@ jobs:
       - run: 
           name: Deploy to Kubernetes
           command: |
-            envsubst < ${HOME}/project/ambassador.sh > ${HOME}/ambassador.sh
-            chmod +x ambassador.sh
-            bash ambassador.sh
+            # envsubst < ${HOME}/project/ambassador.sh > ${HOME}/ambassador.sh
+            # chmod +x ambassador.sh
+            # bash ambassador.sh
             envsubst < ${HOME}/project/bootstrap/external-dns.sh > ${HOME}/external-dns.sh
             chmod +x external-dns.sh
             bash external-dns.sh
