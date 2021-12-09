@@ -1,36 +1,21 @@
-kind: Service
-apiVersion: v1
-metadata:
-  name: ${PROJECT_NAME}
-spec:
-  selector:
-    app: ${PROJECT_NAME}
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 3000
-  type: LoadBalancer
----
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ${PROJECT_NAME}
+  name: nginx-deployment
   labels:
-    app: ${PROJECT_NAME}
+    app: nginx
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
-      app: ${PROJECT_NAME}
+      app: nginx
   template:
     metadata:
       labels:
-        app: ${PROJECT_NAME}
+        app: nginx
     spec:
       containers:
-      - name: ${PROJECT_NAME}
-        image: us.gcr.io/${GOOGLE_PROJECT_ID}/${PROJECT_NAME}:${CIRCLE_SHA1}
+      - name: nginx
+        image: nginx:1.14.2
         ports:
-        - name: http
-          containerPort: 3000
-          protocol: TCP
+        - containerPort: 80
