@@ -55,9 +55,18 @@ jobs:
       - run: 
           name: Deploy to Kubernetes
           command: |
-            envsubst < ${HOME}/project/k8s.yml > ${HOME}/patched_k8s.yml
-            kubectl apply -f ${HOME}/patched_k8s.yml
-            kubectl rollout status deployment/${PROJECT_NAME}
+            envsubst < ${HOME}/project/bootstrap/ambassador.sh > ${HOME}/ambassador.sh
+            envsubst < ${HOME}/project/bootstrap/cert-manager.sh > ${HOME}/cert-manager.sh
+            envsubst < ${HOME}/project/bootstrap/external-dns.sh > ${HOME}/external-dns.sh
+            envsubst < ${HOME}/project/bootstrap/reloader.sh > ${HOME}/reloader.sh
+            chmod +x ambassador.sh
+            chmod +x cert-manager.sh
+            chmod +x external-dns.sh
+            chmod +x reloader.sh
+            bash ambassador.sh
+            bash cert-manager.sh
+            bash external-dns.sh
+            bash reloader.sh
 workflows:
   version: 2
   build_test_deploy:
