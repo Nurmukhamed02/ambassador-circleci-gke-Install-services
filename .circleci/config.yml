@@ -23,7 +23,7 @@ jobs:
       
   
       - run: 
-          name: Install ambassador|cert-manager|external-dns.sh|reloader.sh
+          name: Install ambassador | cert-manager | external-dns | reloader
           command: |
             envsubst < ${HOME}/project/ambassador.sh > ${HOME}/ambassador.sh
             chmod +x ambassador.sh
