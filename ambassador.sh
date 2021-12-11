@@ -8,7 +8,7 @@ then
 else
     kubectl create ns ambassador
 fi
-
+kubectl apply -f https://www.getambassador.io/yaml/aes-crds.yaml 
 #####helm part####
 output=$(helm version | grep "version.BuildInfo" )
 if [[ -n $output ]]
@@ -26,7 +26,7 @@ then
 else
     helm repo add datawire https://www.getambassador.io 
 fi
-kubectl apply -f https://www.getambassador.io/yaml/aes-crds.yaml 
+
 git clone https://github.com/nurizaesenbaeva/ambassador.git
 cd ambassador
 helm repo update
